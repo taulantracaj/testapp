@@ -6,7 +6,7 @@ echo Waiting for old version to stop ...
 curl -m $TIMEOUT -o /dev/null http://localhost:9099
 COUNTER=0
 until [ $(ps | grep java | wc -l) -eq 0 ]; do
-    echo Waiting ...
+    echo Waiting1 ...
     sleep 1
     let COUNTER=COUNTER+1
     if [ $COUNTER -gt $TIMEOUT ]; then
@@ -19,7 +19,7 @@ echo Removing old version ...
 rm cdzd-app-*.jar
 
 echo Installing new version ...
-curl -o cdzd-app-$VERSION.jar http://10.0.2.2:8081/artifactory/libs-release/com/axelfontaine/cdzd-app/$VERSION/cdzd-app-$VERSION.jar
+curl -o cdzd-app-$VERSION.jar http://localhost:8081/artifactory/libs-release/com/axelfontaine/cdzd-app/$VERSION/cdzd-app-$VERSION.jar
 nohup java -jar cdzd-app-$VERSION.jar 0<&- &>log.txt &
 
 echo Waiting for new version to start ...
@@ -29,7 +29,7 @@ until [ $( curl -w %{http_code} -s -o /dev/null http://localhost:9100) -eq 200 ]
         echo Error: instance failed to come up within $TIMEOUT seconds with HTTP 200 !
         exit 1
     fi
-    echo Waiting ...
+    echo Waiting2 ...
     sleep 1
     let COUNTER=COUNTER+1
 done
