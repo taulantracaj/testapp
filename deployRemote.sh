@@ -16,10 +16,10 @@ until [ $(ps | grep java | wc -l) -eq 0 ]; do
 done
 
 echo Removing old version ...
-rm testapp-*.jar
+rm  cdzd-app--*.jar
 
 echo Installing new version ...
-curl -o testapp-$VERSION.jar http://localhost:8081/artifactory/libs-release/com/axelfontaine/cdzd-app/$VERSION/testapp-$VERSION.jar
+curl -o  cdzd-app--$VERSION.jar http://10.0.2.2:8081/artifactory/libs-release/com/axelfontaine/cdzd-app/$VERSION/ cdzd-app--$VERSION.jar
 nohup java -jar cdzd-app-$VERSION.jar 0<&- &>log.txt &
 
 echo Waiting for new version to start ...
